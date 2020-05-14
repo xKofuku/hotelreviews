@@ -84,6 +84,6 @@ app.use(hotelRoutes);
 app.use(authRoutes);
 
 //Starting up the server
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
 	console.log(`Server started on port`);
 });
