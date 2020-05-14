@@ -1,10 +1,11 @@
 var Hotel = require("../models/hotel");
 var Comments = require("../models/comments");
+
 //All middleware goes here
-var middlewareObj = {};
+var middlewareObj = {}; 
 
 middlewareObj.checkHotelOwnership = function (res, req, next) {
-	if (req.isAuthenticated()) {
+	if (req.user.isAuthenticated()) {
 		Hotel.findById(req.params.id, (err, foundHotel) => {
 			if (err) {
 				req.flash("error", "Hotel not found");
