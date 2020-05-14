@@ -1,0 +1,36 @@
+<!-- New Syntax for include -->
+<%- include('../partials/header') %> 
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Hotel Reviews</h1>
+            <p>Better than Trivago</p>
+            <p>
+            <a class="btn btn-primary btn-large" href="/hotels/new">Add new hotel on the list</a>
+            </p>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>The most popular hotels out there!</h3>
+        </div>
+    </div>
+
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% hotels.forEach(function(hotel){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= hotel.image %>" >
+                    <div class="caption">
+                        <h4><%= hotel.name %></h4>
+                    </div>
+                    <a href="/hotels/<%= hotel._id %>" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+</div>
+<%- include('../partials/footer') %> 
