@@ -1,5 +1,5 @@
 var Hotel = require("../models/hotel");
-var Comments = require("../models/comments");
+var Comment = require("../models/comments");
 
 //All middleware goes here
 var middlewareObj = {};
