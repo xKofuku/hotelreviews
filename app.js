@@ -74,9 +74,9 @@ mongoose.connect(uri, {
 });
 
 //Tester if connected
-mongoose.connection.on("connected", () => {
-	console.log("Mongoose is connected!");
-});
+// mongoose.connection.on("connected", () => {
+// 	console.log("Mongoose is connected!");
+// });
 
 //ROUTES
 app.use(commentRoutes);
