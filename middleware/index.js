@@ -14,7 +14,7 @@ middlewareObj.isLoggedIn = function (req, res, next) {
 };
 
 middlewareObj.checkHotelOwnership = function (res, req, next) {
-	if (req.isAuthenticated()) {
+	if (req.Authenticated()) {
 		Hotel.findById(req.params.id, (err, foundHotel) => {
 			if (err) {
 				req.flash("error", "Hotel not found");
@@ -34,7 +34,7 @@ middlewareObj.checkHotelOwnership = function (res, req, next) {
 	}
 };
 middlewareObj.checkCommentOwnership = function (res, req, next) {
-	if (req.isAuthenticated()) {
+	if (req.Authenticated()) {
 		Comment.findById(req.params.id, (err, foundComment) => {
 			if (err) {
 				res.redirect("back");
