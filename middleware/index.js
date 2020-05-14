@@ -2,10 +2,19 @@ var Hotel = require("../models/hotel");
 var Comments = require("../models/comments");
 
 //All middleware goes here
-var middlewareObj = {}; 
+var middlewareObj = {};
+
+middlewareObj.isLoggedIn = function (req, res, next) {
+	//Next parameter is will just continue the code if authenticated
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	req.flash("error", "You need to be logged in to do that");
+	res.redirect("/login");
+};
 
 middlewareObj.checkHotelOwnership = function (res, req, next) {
-	if (req.user.isAuthenticated()) {
+	if (req.isAuthenticated()) {
 		Hotel.findById(req.params.id, (err, foundHotel) => {
 			if (err) {
 				req.flash("error", "Hotel not found");
@@ -42,14 +51,6 @@ middlewareObj.checkCommentOwnership = function (res, req, next) {
 		req.flash("error", "You need to be logged in to do that");
 		res.redirect("back");
 	}
-};
-middlewareObj.isLoggedIn = function (req, res, next) {
-	//Next parameter is will just continue the code if authenticated
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	req.flash("error", "You need to be logged in to do that");
-	res.redirect("/login");
 };
 
 module.exports = middlewareObj;

@@ -6,7 +6,7 @@ var express = require("express"),
 	passport = require("passport"),
 	localStrategy = require("passport-local"),
 	methodOverride = require("method-override"),
-	flash = require("connect-flash")
+	flash = require("connect-flash");
 
 //Models
 var Hotel = require("./models/hotel");
@@ -22,7 +22,23 @@ var commentRoutes = require("./routes/comments"),
 	hotelRoutes = require("./routes/hotels"),
 	authRoutes = require("./routes/index");
 
+//MongoDB Full Driver
+const MongoClient = require("mongodb").MongoClient;
+const uri =
+	"mongodb+srv://admin:admin@cluster0-yjr7t.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect((err) => {
+	const collection = client.db("test").collection("devices");
+	// perform actions on the collection object
+	client.close();
+});
 
+//Connecting to the MongoDB
+mongoose.connect(uri, {
+	useNewUrlParser: true,
+	useCreateIndex: true,
+	useUnifiedTopology: true,
+});
 
 //PassportJS Configuration
 app.use(
@@ -54,25 +70,6 @@ app.use(function (req, res, next) {
 	next();
 });
 
-
-//MongoDB Full Driver
-const MongoClient = require("mongodb").MongoClient;
-const uri =
-	"mongodb+srv://admin:admin@cluster0-yjr7t.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect((err) => {
-	const collection = client.db("test").collection("devices");
-	// perform actions on the collection object
-	client.close();
-});
-
-//Connecting to the MongoDB
-mongoose.connect(uri, {
-	useNewUrlParser: true,
-	useCreateIndex: true,
-	useUnifiedTopology: true,
-});
-
 //Tester if connected
 // mongoose.connection.on("connected", () => {
 // 	console.log("Mongoose is connected!");
@@ -84,6 +81,7 @@ app.use(hotelRoutes);
 app.use(authRoutes);
 
 //Starting up the server
-app.listen(process.env.PORT, () => {
-	console.log(`Server started on port`);
+var port = process.env.PORT;
+app.listen(port || 3000, () => {
+	console.log(`Server started on port` + port);
 });
