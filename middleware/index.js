@@ -35,7 +35,7 @@ middlewareObj.checkHotelOwnership = function (req, res, next) {
 };
 middlewareObj.checkCommentOwnership = function (req, res, next) {
 	if (req.isAuthenticated()) {
-		Comment.findById(req.params.id, (err, foundComment) => {
+		Comment.findById(req.params.comment_id, (err, foundComment) => {
 			if (err) {
 				res.redirect("back");
 			} else {
