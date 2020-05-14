@@ -40,7 +40,7 @@ router.post("/hotels/:id/comments", middleware.isLoggedIn, (req, res) => {
 					comment.save();
 					hotel.comments.push(comment);
 					hotel.save();
-					res.flash("success", "Successfully added comment");
+					req.flash("success", "Successfully added comment");
 					res.redirect("/hotels/" + hotel._id);
 				}
 			});
